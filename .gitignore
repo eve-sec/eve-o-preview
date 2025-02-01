@@ -1,5 +1,11 @@
 bin/
 obj/
+publish/
+tools/
+src/.vs/
 *.suo
 *.user
 *.DotSettings
+build/Fody*
+*.vs/
+.idea
