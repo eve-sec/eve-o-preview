@@ -1,15 +1,3 @@
-EVE-O-Preview has new maintainer.
-
-New forum thread: https://forums.eveonline.com/t/361804
-
-New repository location: https://github.com/EveOPlus/eve-o-preview
-
-Farewell Reddit post: https://www.reddit.com/r/Eve/comments/ujzlq5/eveo_preview_new_developer_needed/
-
-**So Long, and Thanks for All the Fish**
-
----
-
 ## Overview
 
 The purpose of this application is to provide a simple way to keep an eye on several simultaneously running EVE Online clients and to easily switch between them. While running it shows a set of live thumbnails for each of the active EVE Online clients. These thumbnails allow fast switch to the corresponding EVE Online client either using mouse or configurable hotkeys.
@@ -23,17 +11,11 @@ The program does NOT (and will NOT ever) do the following things:
 * broadcast any keyboard or mouse events
 * anyhow interact with EVE Online except of bringing its main window to foreground or resizing/minimizing it
 
-<div style="text-align: center;">
-
-![EVE Partner](https://github.com/Phrynohyas/eve-o-preview/blob/develop/assets/PartnerBadge.png?raw=true)
-
-</div>
-
 <div style="page-break-after: always;"></div>
 
 **Under any conditions you should NOT use EVE-O Preview for any actions that break EULA or ToS of EVE Online.**
 
-If you have find out that some of the features or their combination of EVE-O Preview might cause actions that can be considered as breaking EULA or ToS of EVE Online you should consider them as a bug and immediately notify the Developer ( Phrynohyas Tig-Rah ) via in-game mail.
+If you have find out that some of the features or their combination of EVE-O Preview might cause actions that can be considered as breaking EULA or ToS of EVE Online you should consider them as a bug and immediately notify the Developer ( Devilen ) via in-game mail or contact via Discord Server: 
 
 <div style="page-break-after: always;"></div>
 
@@ -46,12 +28,12 @@ If you have find out that some of the features or their combination of EVE-O Pre
 
 Video Guides:
 
-* [Eve online , How To : Eve-O Preview (multiboxing; legal)](https://youtu.be/2r0NMKbogXU)
+* [Eve online , How To : EVE-O Preview (multiboxing; legal)](https://youtu.be/2r0NMKbogXU)
 
 
 ## System Requirements
 
-* Windows 7, Windows 8/8.1, Windows 10
+* Windows 7, Windows 8/8.1, Windows 10, Windows 11, Linux Wine
 * Microsoft .NET Framework 4.6.2+
 * EVE clients Display Mode should be set to **Fixed Window** or **Window Mode**. **Fullscreen** mode is not supported.
 
@@ -183,6 +165,77 @@ The following hotkey is described as `modifier+key` where `modifier` can be **Co
 
 <div style="page-break-after: always;"></div>
 
+### Cycle Clients with Hotkey Setup
+
+In a similar pattern to the per client Hotkey Setup, It is possible to set a key combinations to cycle through select Eve Windows. EVE-O Preview doesn't provide any GUI to set the these hotkeys. It should be done via editing the configuration file directly. Don't forget to make a backup copy of the file before editing it.
+
+If you have not run EVE-O Preview before, or since this feature was added then it is recommended to quickly open and close EVE-O Preview once to trigger the config to update with some sample values. 
+
+**Note**: Don't forget to make a backup copy of the file before editing it.
+
+Open the file using any text editor. find the entries **CycleGroup1ForwardHotkeys** and **CycleGroup1BackwardHotkeys**. Most probably it will look like
+
+    "CycleGroup1ForwardHotkeys": [
+      "F14",
+      "Control+F14"
+    ],
+    "CycleGroup1BackwardHotkeys": [
+      "F13",
+      "Control+F13"
+    ]
+
+**Note**: It is highly recommended to leave the Hotkey values as default and bind them with a gaming device if you can support it.
+
+Next find the entry **CycleGroup1ForwardHotkeys**. Most probably it will look like
+
+    "CycleGroup1ClientsOrder": {
+      "EVE - Example DPS Toon 1": 1,
+      "EVE - Example DPS Toon 2": 2,
+      "EVE - Example DPS Toon 3": 3
+    }
+
+You should modify this entry with a list of each of your clients replacing "Example DPS Toon 1", etc with the name of your character. The numbers on the right are used to force the order in which they cycle.
+If a character appears in the list but is not currently logged in, then it will simply be skipped.
+If a character does not appear in the list, then they will never become active when cycling clients.
+
+By now you may have noticed that there are two groups. The above configuration can be followed for a second group by using the values **CycleGroup2ForwardHotkeys**, **CycleGroup2BackwardHotkeys**, and **CycleGroup2ForwardHotkeys**
+This may provide useful if you want to have one HotKey to cycle through a group of DPS characters, while another HotKey cycles through support roles such as gate scouts, or a group of logi.
+
+Alternatively you may not want to use any of these HotKeys. Please note that deleting the values in their entirety will simply result in them being automatically re-generated.
+Should you wish to remove these HotKeys completely, Simply set the values to empty, such as the example below:
+
+      "CycleGroup1ForwardHotkeys": [],
+	  "CycleGroup1BackwardHotkeys": [],
+	  "CycleGroup1ClientsOrder": {},
+	  "CycleGroup2ForwardHotkeys": [],
+	  "CycleGroup2BackwardHotkeys": [],
+	  "CycleGroup2ClientsOrder": {}
+
+**Hints** 
+* Minimise the use of modifiers or standard keys to minimise issues with the client playing up. In the default example unusual Function keys (e.g. F14) are used which are then bound to a game pad or gaming mouse.
+* The Eve client can be somewhat less than stable, often getting confused as client focus switches. It is near certain that you will experience issues such as keys sticking or even in some cases D-Scan running each time the client swaps. So far I have found no perfect solution and opt for the most stable solution instead, of sticking to the F14+ keys.
+* For the best experience try to use the Control modifier. In the default example F14 is used to cycle to the next client, but if pressed mid locking a target (Control + Clicking) then the client will not cycle. By registering Control+F4 as an additional hotkey, the client will cycle.
+* For a list of supported keys, see: https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys
+
+### Per Client Border Color
+Have you ever wanted your main client to show up in a different color so that it more easily catches your eye? Or maybe your Logi to stand out?
+
+EVE-O Preview doesn't provide any GUI to set the these per client overrides as yet. Though, It can be done via editing the configuration file directly. 
+**Note** Don't forget to make a backup copy of the file before editing it.
+
+Open the file using any text editor. find the entry **PerClientActiveClientHighlightColor**. Most probably it will look like
+
+    "PerClientActiveClientHighlightColor": {
+      "EVE - Example Toon 1": "Red",
+      "EVE - Example Toon 2": "Green"
+    }
+
+You should modify this entry with a list of each of your clients replacing "Example Toon 1", etc with the name of your character. The names on the right represent which highligh color to use for that clients border.
+
+If a client does not appear in this list, then it will use the global highlight color by default.
+
+**Hint** For a list of supported colors see: https://docs.microsoft.com/en-us/dotnet/api/system.drawing.color#properties
+
 ### Compatibility Mode
 
 This setting allows to enable an alternate thumbnail render. This render doesn't use advanced DWM API to create live previews. Instead it is a screenshot-based render with the following pros and cons:
@@ -197,7 +250,9 @@ This setting allows to enable an alternate thumbnail render. This render doesn't
 
 ### Maintained by
 
-* Phrynohyas Tig-Rah
+* Devilen
+  
+* Dal Shooth
 
 
 ### Created by
@@ -205,8 +260,11 @@ This setting allows to enable an alternate thumbnail render. This render doesn't
 * StinkRay
 
 
-
 ### Previous maintainers
+
+* Aura Asuna
+
+* Phrynohyas Tig-Rah
  
 * Makari Aeron
 
@@ -233,8 +291,3 @@ https://bitbucket.org/ulph/eve-o-preview-git
 
 EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf. EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. CCP hf. has granted permission to pyfa to use EVE Online and all associated logos and designs for promotional and information purposes on its website but does not endorse, and is not in any way affiliated with, pyfa. CCP is in no way responsible for the content on or functioning of this program, nor can it be liable for any damage arising from the use of this program. 
 
-## Additional information for users from Russia and Belarus
-
-* Russia has [illegally annexed Crimea in 2014](https://en.wikipedia.org/wiki/Annexation_of_Crimea_by_the_Russian_Federation) and [brought the war in Donbas](https://en.wikipedia.org/wiki/War_in_Donbas) followed by [full-scale invasion of Ukraine in 2022](https://en.wikipedia.org/wiki/2022_Russian_invasion_of_Ukraine).
-* Russia has brought sorrow and devastations to millions of Ukrainians, killed hundreds of innocent people, damaged thousands of buildings, and forced several million people to flee.
-* [Putin khuylo!](https://en.wikipedia.org/wiki/Putin_khuylo!)
